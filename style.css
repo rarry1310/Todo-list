@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerTodo {
+    color: #fff;
+    background-image: linear-gradient(120deg, #f6d365, #fda085);
+    font-family: inherit;
+    min-height: 100vh;
+}
+
+header,
+form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input, form button {
+    padding: .5rem;
+    font-size: 2rem;
+    border: none;
+    background-color: #fff;
+}
+
+form button {
+    color: #fda085;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all .3 ease;
+}
+
+form button:hover {
+    background-color: #fda085;
+    color: #fff;
+}
+
+.todoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todoList { 
+    min-width: 30%;
+    list-style-type: none;
+}
+
+.todoDiv {
+    margin: .5rem;
+    background-color: #fff;
+    color: #000;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todoDiv li {
+    flex: 1;
+}
+
+.buttons button {
+    background-color: #fda085;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.checked {
+    background-color: #000000;
+}
