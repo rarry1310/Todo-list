@@ -4,22 +4,24 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: grey;
-}
-
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin: auto;
     margin-top: 5rem;
+    width: 30rem;
+    background-color: grey;
+    height: 80vh;
+    border-radius: 10px;
+    overflow-y:scroll;
 }
 
 .input-form {
     display: flex;
     justify-content: space-evenly;
     width: 25rem;
+    margin-top: 2rem;
 }
 
 /* TASK INPUT */
@@ -48,6 +50,7 @@ body {
     padding: .5rem;
     cursor: pointer;
     font-weight: bolder;
+    margin-left: .5rem;
 }
 
 .task-list {
@@ -63,7 +66,6 @@ body {
     justify-content: space-between;
     margin-bottom: .5rem;
     border-radius: 5px;
-    
 }
 
 .task-input {
@@ -74,11 +76,11 @@ body {
     box-shadow: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
     color: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
     border-radius: 5px;
-    min-width: 20rem;
+    min-width: 18rem;
 }
 
 
-/* BUTTONS EDIT */
+/* BUTTONS */
 .check-btn,
 .delete-btn,
 .edit-btn {

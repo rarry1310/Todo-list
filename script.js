@@ -20,7 +20,7 @@ function addTask(e) {
     e.preventDefault();
 
     if(input.value === "") {
-        alert("Please enter a task!")
+        alert("Please add a task!")
     }
     else {
 
