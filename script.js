@@ -29,7 +29,7 @@ function addTask(e) {
         taskDiv.classList.add('task-div');
 
 
-        //CREARE TASK INPUT
+        //CREATE TASK INPUT
         let taskInput = document.createElement('input');
         taskInput.value = input.value;
         taskInput.type = 'text';
