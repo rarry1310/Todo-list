@@ -4,74 +4,107 @@
     box-sizing: border-box;
 }
 
-.containerTodo {
-    color: #fff;
-    background-image: linear-gradient(120deg, #f6d365, #fda085);
-    font-family: inherit;
-    min-height: 100vh;
+body {
+    background-color: grey;
 }
 
-header,
-form {
-    min-height: 20vh;
+.container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 5rem;
 }
 
-form input, form button {
-    padding: .5rem;
-    font-size: 2rem;
+.input-form {
+    display: flex;
+    justify-content: space-evenly;
+    width: 25rem;
+}
+
+.task-input {
     border: none;
+    border-radius: 10px;
+    padding: .5rem;
     background-color: #fff;
+    color: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+    box-shadow: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
 }
 
-form button {
-    color: #fda085;
+::placeholder {
+    color: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+}
+
+.add-task {
+    border: none;
+    border-radius: 4px;
     background-color: #fff;
+    color: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+    box-shadow: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+    padding: .5rem;
     cursor: pointer;
-    transition: all .3 ease;
+    font-weight: bolder;
 }
 
-form button:hover {
-    background-color: #fda085;
-    color: #fff;
-}
-
-.todoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.todoList { 
-    min-width: 30%;
+.task-list {
+    padding-top: 2rem;
+    min-width: 20rem;
     list-style-type: none;
+    font-size: 1.5rem;
 }
 
-.todoDiv {
-    margin: .5rem;
-    background-color: #fff;
-    color: #000;
-    font-size: 1.5rem;
+.task-div {
+    padding: .3rem 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: .5rem;
+    border-radius: 5px;
+    
 }
 
-.todoDiv li {
+.task-input {
+    padding: .25rem .5rem;
     flex: 1;
+    font-weight: bolder;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+    color: 0px 0px 5px 2px rgba(90, 90, 90, 0.822);
+    border-radius: 5px;
+    min-width: 20rem;
 }
 
-.buttons button {
-    background-color: #fda085;
-    color: #fff;
-    border: none;
-    padding: 1rem;
+.check-btn,
+.delete-btn,
+.edit-btn {
     cursor: pointer;
-    font-size: 1rem;
+    border: none;
+    margin-left: .25rem;
+    border-radius: 5px;
+    padding: .25rem;
+    font-weight: bolder;
+    font-size: 1.25rem;
 }
 
-.checked {
-    background-color: #000000;
+.check-btn {
+    background-color: rgba(94, 245, 162);
+}
+
+.edit-btn {
+    background-color: rgb(197, 228, 84);
+}
+
+.delete-btn {
+    background-color: red;
+    color: #fff;
+}
+
+.bx-eraser,
+.bx-check,
+.bx-edit {
+    pointer-events: none;
+    padding: .2rem;
+}
+
+.task-done {
+    text-decoration: line-through;
 }

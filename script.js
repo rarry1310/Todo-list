@@ -1,41 +1,98 @@
-let addTodoInput = document.getElementById('addTodoInput');
-let todoInput = document.getElementById('todoInput');
-let addButton = document.getElementById('addButton');
-let todoList = document.getElementById('todoList');
+//START
+
+//SELECTORS
+let input = document.querySelector('#task-input');
+let addTaskButton = document.querySelector('#add-task-button');
+let taskList = document.querySelector('#task-list');
 
 
-addButton.addEventListener('click', addTodo);
+//EVENT LISTENERS
 
-function addTodo(e) {
-    event.preventDefault();
+addTaskButton.addEventListener('click',addTask);
 
-    let todoDiv = document.createElement('div');
-    todoDiv.classList.add('todoDiv');
-    todoList.appendChild(todoDiv);
 
-    let newTodo = document.createElement('li');
-    newTodo.classList.add('newTodo');
-    todoDiv.appendChild(newTodo);
-    newTodo.innerText = todoInput.value;
 
-    let buttons = document.createElement('div');
-    buttons.classList.add('buttons');
-    todoDiv.appendChild(buttons)
+//FUNCTIONS
+
+function addTask(e) {
     
-    let deleteButton = document.createElement('button');
-    deleteButton.classList.add('deleteButton');
-    deleteButton.innerHTML = '<i class="bx bx-trash"></i>';
-    buttons.appendChild(deleteButton);
-    
-    let checkButton = document.createElement('button');
-    checkButton.classList.add('checkButton');
-    checkButton.innerHTML = '<i class="bx bx-checkbox"></i>';
-    buttons.appendChild(checkButton);
+    //PREVENT THE FORM FROM SUBMITING
+    e.preventDefault();
 
-    let checkedButton = document.createElement('button');
-    checkedButton.classList.add('checkedButton');
-    checkedButton.innerHTML = '<i class="bx bx-checkbox-checked checked"></i>';
-    buttons.appendChild(checkedButton);    
+    if(input.value === "") {
+        alert("Please enter a task!")
+    }
+    else {
 
-    todoInput.value = "";
+         //CREATE TASK DIV
+        let taskDiv = document.createElement('div');
+        taskDiv.classList.add('task-div');
+
+
+        //CREARE TASK INPUT
+        let taskInput = document.createElement('input');
+        taskInput.value = input.value;
+        taskInput.type = 'text';
+        taskInput.setAttribute("readonly","readonly");
+        taskInput.classList.add('task-input');
+        taskDiv.appendChild(taskInput);
+
+
+        //CHECK BUTTON
+        let checkButton = document.createElement('button');
+        checkButton.innerHTML = '<i class="bx bx-check"></i>';
+        checkButton.classList.add('check-btn');
+        taskDiv.appendChild(checkButton);
+
+
+        //EDIT BUTTON
+        let editButton = document.createElement('button');
+        editButton.innerHTML = '<i class="bx bx-edit"></i>';
+        editButton.classList.add('edit-btn');
+        taskDiv.appendChild(editButton);
+
+
+        //DELETE BUTTON
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="bx bx-eraser"></i>';
+        deleteButton.classList.add('delete-btn');
+        taskDiv.appendChild(deleteButton);
+
+        taskList.appendChild(taskDiv);
+
+
+        //CLEAR INPUT VALUE
+        input.value = '';
+
+
+        //CHECK TASK
+        checkButton.addEventListener('click', () => {
+            if(taskInput.classList == 'task-done') {
+                taskInput.classList.toggle('task-done');
+            }
+            else {
+                taskInput.classList.toggle('task-done');
+            }
+        });
+
+        //EDIT TASK
+        editButton.addEventListener('click', () => {
+            if(taskInput.hasAttribute('readonly')){
+                taskInput.removeAttribute('readonly');
+                taskInput.focus();
+                editButton.style.backgroundColor = '#fff';
+            }
+            else {
+                taskInput.setAttribute('readonly','readonly');
+                taskInput.blur();
+                editButton.style.backgroundColor = 'rgb(197, 228, 84)';
+            }
+        });
+
+
+        //REMOVE TASK
+        deleteButton.addEventListener('click', () => {
+            taskDiv.remove()
+        });
+    }
 }
