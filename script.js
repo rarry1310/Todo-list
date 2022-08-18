@@ -1,15 +1,10 @@
-//START
-
 //SELECTORS
 let input = document.querySelector('#task-input');
 let addTaskButton = document.querySelector('#add-task-button');
 let taskList = document.querySelector('#task-list');
 
-
 //EVENT LISTENERS
-
 addTaskButton.addEventListener('click',addTask);
-
 
 
 //FUNCTIONS
@@ -23,10 +18,10 @@ function addTask(e) {
         alert("Please add a task!")
     }
     else {
-
-         //CREATE TASK DIV
+        //CREATE TASK DIV
         let taskDiv = document.createElement('div');
         taskDiv.classList.add('task-div');
+        taskList.appendChild(taskDiv);
 
 
         //CREATE TASK INPUT
@@ -58,7 +53,6 @@ function addTask(e) {
         deleteButton.classList.add('delete-btn');
         taskDiv.appendChild(deleteButton);
 
-        taskList.appendChild(taskDiv);
 
 
         //CLEAR INPUT VALUE
@@ -75,19 +69,22 @@ function addTask(e) {
             }
         });
 
+
         //EDIT TASK
         editButton.addEventListener('click', () => {
             if(taskInput.hasAttribute('readonly')){
                 taskInput.removeAttribute('readonly');
-                taskInput.focus();
                 editButton.style.backgroundColor = '#fff';
+                taskInput.classList.toggle('task-edit');
+                taskInput.focus();
             }
             else {
                 taskInput.setAttribute('readonly','readonly');
+                editButton.style.backgroundColor = 'rgb(197, 288, 20)';
+                taskInput.classList.toggle('task-edit');
                 taskInput.blur();
-                editButton.style.backgroundColor = 'rgb(197, 228, 84)';
             }
-        });
+        });        
 
 
         //REMOVE TASK
@@ -95,4 +92,5 @@ function addTask(e) {
             taskDiv.remove()
         });
     }
-}
+
+}   
