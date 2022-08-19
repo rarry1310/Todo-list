@@ -1,96 +1,126 @@
+//START
+
 //SELECTORS
 let input = document.querySelector('#task-input');
 let addTaskButton = document.querySelector('#add-task-button');
 let taskList = document.querySelector('#task-list');
+let taskStorage = [];
 
 //EVENT LISTENERS
-addTaskButton.addEventListener('click',addTask);
 
+addTaskButton.addEventListener('click', addTask);
 
-//FUNCTIONS
+window.onload = function() {
 
+    let savedList = localStorage.getItem("taskList");
+    taskStorage = localStorage.getItem("taskStorage");
+
+    // Transform String into Array
+    if (taskStorage) {
+        taskStorage = taskStorage.split(",");
+    } else {
+        taskStorage = [];
+    }
+
+    if (savedList) {
+        taskList.innerHTML = savedList;
+        let newTask = document.getElementsByClassName("task-new");
+        for (let i = 0; i < newTask.length; i++) {
+            newTask[i].value = taskStorage[i];
+        }
+    }
+
+}
+
+// FUNCTIONS
 function addTask(e) {
-    
+
     //PREVENT THE FORM FROM SUBMITING
     e.preventDefault();
 
-    if(input.value === "") {
-        alert("Please add a task!")
-    }
-    else {
-        //CREATE TASK DIV
+    if (input.value === "") {
+        input.setAttribute("Placeholder", "Task Name Can't Be Empty");
+        input.classList.add("placeholder-error");
+    } else {
+        input.classList.remove("placeholder-error");
+
+        // CREATE TASK DIV
         let taskDiv = document.createElement('div');
         taskDiv.classList.add('task-div');
-        taskList.appendChild(taskDiv);
 
-
-        //CREATE TASK INPUT
+        // CREATE TASK INPUT
         let taskInput = document.createElement('input');
         taskInput.value = input.value;
+        taskStorage.push(input.value);
+
         taskInput.type = 'text';
-        taskInput.setAttribute("readonly","readonly");
-        taskInput.classList.add('task-input');
+        taskInput.setAttribute("readonly", "readonly");
+        taskInput.classList.add('task-input', 'task-new');
         taskDiv.appendChild(taskInput);
 
+        // CHECK BUTTON
+        createButton('check', 'check', taskDiv);
 
-        //CHECK BUTTON
-        let checkButton = document.createElement('button');
-        checkButton.innerHTML = '<i class="bx bx-check"></i>';
-        checkButton.classList.add('check-btn');
-        taskDiv.appendChild(checkButton);
+        // EDIT BUTTON
+        createButton('edit', 'edit', taskDiv);
 
+        // DELETE BUTTON
+        createButton('delete', 'eraser', taskDiv);
 
-        //EDIT BUTTON
-        let editButton = document.createElement('button');
-        editButton.innerHTML = '<i class="bx bx-edit"></i>';
-        editButton.classList.add('edit-btn');
-        taskDiv.appendChild(editButton);
-
-
-        //DELETE BUTTON
-        let deleteButton = document.createElement('button');
-        deleteButton.innerHTML = '<i class="bx bx-eraser"></i>';
-        deleteButton.classList.add('delete-btn');
-        taskDiv.appendChild(deleteButton);
-
-
+        taskList.appendChild(taskDiv);
 
         //CLEAR INPUT VALUE
         input.value = '';
-
-
-        //CHECK TASK
-        checkButton.addEventListener('click', () => {
-            if(taskInput.classList == 'task-done') {
-                taskInput.classList.toggle('task-done');
-            }
-            else {
-                taskInput.classList.toggle('task-done');
-            }
-        });
-
-
-        //EDIT TASK
-        editButton.addEventListener('click', () => {
-            if(taskInput.hasAttribute('readonly')){
-                taskInput.removeAttribute('readonly');
-                editButton.style.backgroundColor = '#fff';
-                taskInput.classList.toggle('task-edit');
-                taskInput.focus();
-            }
-            else {
-                taskInput.setAttribute('readonly','readonly');
-                editButton.style.backgroundColor = 'rgb(197, 288, 20)';
-                taskInput.classList.toggle('task-edit');
-                taskInput.blur();
-            }
-        });        
-
-
-        //REMOVE TASK
-        deleteButton.addEventListener('click', () => {
-            taskDiv.remove()
-        });
     }
+    updateStorage();
+}
 
-}   
+function createButton(buttonWord, iconName, taskDiv) {
+    let buttonName = document.createElement('button');
+    buttonName.innerHTML = `<i class="bx bx-${iconName}"></i>`;
+    buttonName.classList.add(`${buttonWord}-btn`);
+    buttonName.setAttribute("onclick", `${buttonWord}Task(this);`);
+    taskDiv.appendChild(buttonName);
+}
+
+function checkTask(taskButton) {
+    let taskInput = taskButton.parentElement.children[0];
+    taskInput.classList.toggle('task-done');
+    updateStorage();
+}
+
+function editTask(taskButton) {
+    let taskInput = taskButton.parentElement.children[0];
+    let editButton = taskButton.parentElement.children[2];
+
+    if (taskInput.hasAttribute('readonly')) {
+        taskInput.removeAttribute('readonly');
+        taskInput.focus();
+        editButton.style.backgroundColor = '#fff';
+
+        localStorage.setItem("editedItem", taskStorage.indexOf(taskInput.value))
+    } else {
+        taskInput.setAttribute('readonly', 'readonly');
+        taskInput.blur();
+        editButton.style.backgroundColor = 'rgb(197, 228, 84)';
+
+        taskStorage[localStorage.getItem("editedItem")] = taskInput.value;
+    }
+    updateStorage();
+}
+
+function deleteTask(taskButton) {
+    let taskInput = taskButton.parentElement.children[0];
+    let taskDiv = taskButton.parentElement;
+    let removedItem = taskStorage.indexOf(taskInput.value)
+    if (removedItem !== -1) {
+        taskStorage.splice(removedItem, 1);
+    }
+    taskDiv.remove();
+    updateStorage();
+}
+
+function updateStorage() {
+    localStorage.setItem("taskStorage", taskStorage);
+    localStorage.setItem("taskList", taskList.innerHTML);
+}
