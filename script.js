@@ -1,9 +1,9 @@
 //START
 
 //SELECTORS
-let input = document.querySelector('#task-input');
-let addTaskButton = document.querySelector('#add-task-button');
-let taskList = document.querySelector('#task-list');
+let input = document.getElementById('task-input');
+let addTaskButton = document.getElementById('add-task-button');
+let taskList = document.getElementById('task-list');
 let taskStorage = [];
 
 //EVENT LISTENERS
